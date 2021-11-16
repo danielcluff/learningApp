@@ -1,0 +1,13 @@
+typescript watch watches the javascript
+dev node demon watches the source files
+
+
+sudo systemctl start postgresql@12-main
+pg_ctlcluster 12 main start
+sudo su - postgres
+
+
+timestamp 17:50
+
+npx mikro-orm migration:create
+when updating orm entities for db
