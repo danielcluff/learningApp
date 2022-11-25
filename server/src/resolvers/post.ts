@@ -5,14 +5,17 @@ import { MyContext } from "../types";
 @Resolver()
 export class PostResolver {
     @Query(() => [Post])
-    posts(@Ctx() { em }: MyContext): Promise<Post[]> {
+    posts(
+        @Ctx() { em }: MyContext
+    ): Promise<Post[]> {
         return em.find(Post, {});
     }
 
     @Query(() => Post, { nullable: true })
     post(
         @Arg('id', () => Int) id: number,
-        @Ctx() { em }: MyContext): Promise<Post | null> {
+        @Ctx() { em }: MyContext
+    ): Promise<Post | null> {
         return em.findOne(Post, { id });
     }
 
@@ -22,7 +25,7 @@ export class PostResolver {
         @Ctx() { em }: MyContext
     ): Promise<Post | null> {
         const post = em.create(Post, {title})
-        await em.persistAndFlush(post)
+        await em.persistAndFlush(post);
         return em.findOne(Post, { title });
     }
 
@@ -48,7 +51,7 @@ export class PostResolver {
         @Arg("id") id: number,
         @Ctx() { em }: MyContext
     ): Promise<boolean> {
-        await em.nativeDelete(Post, {id})
+        await em.nativeDelete(Post, {id});
         return true;
     }
 }
