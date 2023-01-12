@@ -16,7 +16,7 @@ exports.PostResolver = void 0;
 const type_graphql_1 = require("type-graphql");
 const Post_1 = require("../entities/Post");
 let PostResolver = class PostResolver {
-    posts({ em }) {
+    async posts({ em }) {
         return em.find(Post_1.Post, {});
     }
     post(id, { em }) {
@@ -32,7 +32,7 @@ let PostResolver = class PostResolver {
         if (!post) {
             return null;
         }
-        if (typeof title !== 'undefined') {
+        if (typeof title !== "undefined") {
             post.title = title;
             await em.persistAndFlush(post);
         }
@@ -52,7 +52,7 @@ __decorate([
 ], PostResolver.prototype, "posts", null);
 __decorate([
     (0, type_graphql_1.Query)(() => Post_1.Post, { nullable: true }),
-    __param(0, (0, type_graphql_1.Arg)('id', () => type_graphql_1.Int)),
+    __param(0, (0, type_graphql_1.Arg)("id", () => type_graphql_1.Int)),
     __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Object]),
@@ -60,7 +60,7 @@ __decorate([
 ], PostResolver.prototype, "post", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => Post_1.Post),
-    __param(0, (0, type_graphql_1.Arg)('title')),
+    __param(0, (0, type_graphql_1.Arg)("title")),
     __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
@@ -69,7 +69,7 @@ __decorate([
 __decorate([
     (0, type_graphql_1.Mutation)(() => Post_1.Post, { nullable: true }),
     __param(0, (0, type_graphql_1.Arg)("id")),
-    __param(1, (0, type_graphql_1.Arg)('title', () => String, { nullable: true })),
+    __param(1, (0, type_graphql_1.Arg)("title", () => String, { nullable: true })),
     __param(2, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, String, Object]),

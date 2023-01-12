@@ -1,5 +1,8 @@
 # learningApp
 
+// 2:09:39
+Starting front end
+
 terminal
 docker-compose -f learningAppDockerCompose.yaml up
 docker-compose -f learningAppDockerCompose.yaml down
