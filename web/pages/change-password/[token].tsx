@@ -51,7 +51,7 @@ const ChangePassword: NextPage<{ token: string }> = ({ token }) => {
           <>
             <InputError error={showError(errors, "token")} />
             <NextLink href="/forgot-password">
-              <a href="/reset">Resend forgot password reset email</a>
+              <p>Resend forgot password reset email</p>
             </NextLink>
           </>
         )}

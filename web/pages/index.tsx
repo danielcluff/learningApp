@@ -27,5 +27,5 @@ export default withUrqlClient(createUrqlClient, { ssr: true })(Index);
 // 4:12:38
 // 4:31:21
 // 5:05:44
-//4:55:00 doesn't have whatever user magic I need, try to minutes before this
 // 5:22:14
+// 5:50:44
