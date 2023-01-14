@@ -11,37 +11,36 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
     pause: isServer(),
   });
 
-  let body = null;
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  if (fetching) {
-  } else if (!data?.me) {
-    body = (
-      <>
-        <NextLink href={"/login"}>
-          <p>Login</p>
-        </NextLink>
-        <NextLink href={"/register"}>
-          <p>Register</p>
-        </NextLink>
-      </>
-    );
-  } else {
-    body = (
-      <>
-        <div>{data.me.username}</div>
-        <button
-          onClick={() => logout()}
-          className={`${logoutFetching ? "opacity-50" : ""}`}
-        >
-          Logout
-        </button>
-      </>
-    );
-  }
+  // useEffect(() => {
+  //   console.log(data);
+  //   setIsLoggedIn(!!data?.me);
+  //   console.log(isLoggedIn);
+  // }, [data]);
 
   return (
-    <nav className="flex gap-4 w-full p-4 bg-red-500 text-white justify-end">
-      {body}
+    <nav className="sticky z-10 flex gap-4 w-full p-4 bg-red-500 text-white justify-end">
+      {!data?.me ? (
+        <>
+          <NextLink href={"/login"}>
+            <p>Login</p>
+          </NextLink>
+          <NextLink href={"/register"}>
+            <p>Register</p>
+          </NextLink>
+        </>
+      ) : (
+        <>
+          <div>{data?.me.username}</div>
+          <button
+            onClick={() => logout()}
+            className={`${logoutFetching ? "opacity-50" : ""}`}
+          >
+            Logout
+          </button>
+        </>
+      )}
     </nav>
   );
 };

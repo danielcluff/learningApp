@@ -14,6 +14,8 @@ import { dataSource } from "./typeOrmDataSource";
 
 const main = async () => {
   await dataSource.initialize();
+  // await Post.delete({});
+
   const app = express();
   const RedisStore = connectRedis(session);
   const redis = new Redis();
@@ -65,5 +67,3 @@ const main = async () => {
 main().catch((err) => {
   console.error(err);
 });
-
-// 1:42:54

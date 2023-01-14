@@ -1,8 +1,8 @@
-import React, { InputHTMLAttributes } from "react";
+import React, { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
 // import Register from "../pages/register";
 import { InputError } from "./InputError";
 
-type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
+type InputTextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   name: string;
   label: string;
   type?: string;
@@ -11,7 +11,7 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   register: any;
 };
 
-export const InputField: React.FC<InputFieldProps> = ({
+export const InputTextarea: React.FC<InputTextareaProps> = ({
   name,
   label,
   placeholder,
@@ -28,7 +28,7 @@ export const InputField: React.FC<InputFieldProps> = ({
       <label htmlFor={name} className="font-lg">
         {label}
       </label>
-      <input
+      <textarea
         {...register(name)}
         id={name}
         className="block p-2 w-full rounded border border-gray-300"

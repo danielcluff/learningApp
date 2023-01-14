@@ -15,17 +15,16 @@ type Inputs = {
   newPassword: string;
 };
 
-const ChangePassword: NextPage<{ token: string }> = ({ token }) => {
+const ChangePassword: NextPage = () => {
   const router = useRouter();
   const [, changePassword] = useChangePasswordMutation();
-
   const { register, handleSubmit } = useForm<Inputs>();
   const [errors, setErrors] = React.useState({ field: "", message: "" });
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
     const response = await changePassword({
       newPassword: values.newPassword,
-      token,
+      token: typeof router.query.token === "string" ? router.query.token : "",
     });
     if (response.data?.changePassword.errors) {
       setErrors(response.data.changePassword.errors[0]);
@@ -55,7 +54,6 @@ const ChangePassword: NextPage<{ token: string }> = ({ token }) => {
             </NextLink>
           </>
         )}
-        {/* <InputError error={showError(errors, "token")} /> */}
         <button
           type="submit"
           className="w-full rounded p-2 bg-teal-600 text-white"
@@ -65,12 +63,6 @@ const ChangePassword: NextPage<{ token: string }> = ({ token }) => {
       </form>
     </Wrapper>
   );
-};
-
-ChangePassword.getInitialProps = ({ query }) => {
-  return {
-    token: query.token as string,
-  };
 };
 
 export default withUrqlClient(createUrqlClient)(ChangePassword);
