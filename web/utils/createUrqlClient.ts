@@ -34,23 +34,20 @@ const cursorPagination = (): Resolver => {
   return (_parent, fieldArgs, cache, info) => {
     const { parentKey: entityKey, fieldName } = info;
     const allFields = cache.inspectFields(entityKey);
-    // console.log("all fields: ", allFields);
     const fieldInfos = allFields.filter((info) => info.fieldName === fieldName);
     const size = fieldInfos.length;
     if (size === 0) {
       return undefined;
     }
-    const fieldKey = `${fieldName}(${stringifyVariables(fieldArgs)}`;
-    // console.log("fk", fieldKey);
-    // const isItInTheCache = cache.resolve(entityKey, fieldKey);
+
+    const fieldKey = `${fieldName}(${stringifyVariables(fieldArgs)})`;
+    console.log("fk", fieldKey);
     const isItInTheCache = cache.resolve(
       cache.resolve(entityKey, fieldKey) as string,
       "posts"
     );
-    console.log("is it?", isItInTheCache);
     info.partial = !isItInTheCache;
     let hasMore = true;
-    // console.log("ip", info.partial);
     const results: string[] = [];
     fieldInfos.forEach((fi) => {
       const key = cache.resolve(entityKey, fi.fieldKey) as string;
@@ -62,7 +59,6 @@ const cursorPagination = (): Resolver => {
       results.push(...data);
     });
 
-    console.log("results: ", results);
     return {
       __typename: "PaginatedPosts",
       hasMore,
