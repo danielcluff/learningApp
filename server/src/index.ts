@@ -15,6 +15,7 @@ import { dataSource } from "./typeOrmDataSource";
 const main = async () => {
   await dataSource.initialize();
   // await Post.delete({});
+  await dataSource.runMigrations();
 
   const app = express();
   const RedisStore = connectRedis(session);

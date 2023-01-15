@@ -18,6 +18,7 @@ const cors_1 = __importDefault(require("cors"));
 const typeOrmDataSource_1 = require("./typeOrmDataSource");
 const main = async () => {
     await typeOrmDataSource_1.dataSource.initialize();
+    await typeOrmDataSource_1.dataSource.runMigrations();
     const app = (0, express_1.default)();
     const RedisStore = (0, connect_redis_1.default)(express_session_1.default);
     const redis = new ioredis_1.default();
