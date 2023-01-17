@@ -29,6 +29,7 @@ const Index = () => {
   if (!data && !fetching) {
     <div className="f">Your query failed for some reason</div>;
   }
+  console.log(data);
 
   return (
     <Layout>
@@ -43,7 +44,12 @@ const Index = () => {
           <br />
           <div className="mt-4 max-w-lg space-y-8">
             {data?.posts?.posts?.map((p) => (
-              <PostCard key={p.id} title={p.title} text={p.textSnippet} />
+              <PostCard
+                key={p.id}
+                title={p.title}
+                text={p.textSnippet}
+                user={p.creator.username}
+              />
             ))}
           </div>
           {data && data.posts.hasMore ? (
@@ -80,3 +86,4 @@ export default withUrqlClient(createUrqlClient, { ssr: true })(Index);
 // 6:31:26
 // 7:12:37
 // 8:00:53
+// 8:23:17
