@@ -8,7 +8,7 @@ import { PostCard } from "../components/PostCard";
 
 const Index = () => {
   const [variables, setVariables] = useState({
-    limit: 10,
+    limit: 15,
     cursor: null as null | string,
   });
   const [{ data, fetching }] = usePostsQuery({
@@ -44,12 +44,7 @@ const Index = () => {
           <br />
           <div className="mt-4 max-w-lg space-y-8">
             {data?.posts?.posts?.map((p) => (
-              <PostCard
-                key={p.id}
-                title={p.title}
-                text={p.textSnippet}
-                user={p.creator.username}
-              />
+              <PostCard key={p.id} post={p} />
             ))}
           </div>
           {data && data.posts.hasMore ? (
@@ -87,3 +82,5 @@ export default withUrqlClient(createUrqlClient, { ssr: true })(Index);
 // 7:12:37
 // 8:00:53
 // 8:23:17
+// 8:46:46
+// 9:23:06
