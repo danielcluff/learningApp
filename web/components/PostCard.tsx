@@ -1,23 +1,15 @@
 import React from "react";
-import { PostSnippetFragment } from "../generated/graphql";
+import { PostSnippetFragment, useMeQuery } from "../generated/graphql";
 import { UpdootSection } from "./UpdootSection";
 import NextLink from "next/link";
-import { TrashIcon } from "@heroicons/react/24/outline";
-import { useDeletePostMutation } from "../generated/graphql";
-
-// interface PostCardProps {
-//   title: string;
-//   text: string;
-//   author: string;
-//   points: number;
-// }
+import { EditDeletePostActions } from "./EditDeletePostActions";
 
 interface PostCardProps {
   post: PostSnippetFragment;
 }
 
 export const PostCard: React.FC<PostCardProps> = ({ post }) => {
-  const [, deletePost] = useDeletePostMutation();
+  const [{ data: meData }] = useMeQuery();
 
   return (
     <div className="border rounded-sm shadow">
@@ -36,13 +28,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
             <p className="text-sm">{post.textSnippet}</p>
           </div>
           <div className="sideActions">
-            <div
-              aria-label="Delete post"
-              onClick={() => deletePost({ id: post.id })}
-              className="p-1 cursor-pointer"
-            >
-              <TrashIcon className="h-5 w-5" />
-            </div>
+            <EditDeletePostActions id={post.id} creatorId={post.creator.id} />
           </div>
         </div>
       </div>

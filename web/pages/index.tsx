@@ -1,7 +1,7 @@
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../utils/createUrqlClient";
 import { usePostsQuery } from "../generated/graphql";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Layout } from "../components/Layout";
 import { PostCard } from "../components/PostCard";
 
@@ -13,22 +13,10 @@ const Index = () => {
   const [{ data, fetching }] = usePostsQuery({
     variables,
   });
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return <div> Loading 1...</div>;
-  }
-  if (typeof window === "undefined") {
-    return <>Err...</>;
-  }
   if (!data && !fetching) {
     <div className="f">Your query failed for some reason</div>;
   }
-  console.log(data);
 
   return (
     <Layout>
@@ -81,3 +69,4 @@ export default withUrqlClient(createUrqlClient, { ssr: true })(Index);
 // 9:51:57
 // 10:04:08
 // 10:38:18
+// 11:09:23
