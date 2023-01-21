@@ -20,27 +20,37 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   // }, [data]);
 
   return (
-    <nav className="sticky z-10 flex gap-4 w-full p-4 bg-red-500 text-white justify-end">
-      {!data?.me ? (
-        <>
-          <NextLink href={"/login"}>
-            <p>Login</p>
+    <header className="sticky z-10 bg-red-500">
+      <nav className="max-w-3xl mx-auto flex justify-between gap-4 w-full p-4 text-white">
+        <NextLink href={"/"}>
+          <h1 className="text-2xl mr-4">LiReddit</h1>
+        </NextLink>
+        <div className="flex gap-4 items-center">
+          <NextLink href={"/create-post"}>
+            <span>Create post</span>
           </NextLink>
-          <NextLink href={"/register"}>
-            <p>Register</p>
-          </NextLink>
-        </>
-      ) : (
-        <>
-          <div>{data?.me.username}</div>
-          <button
-            onClick={() => logout()}
-            className={`${logoutFetching ? "opacity-50" : ""}`}
-          >
-            Logout
-          </button>
-        </>
-      )}
-    </nav>
+          {!data?.me ? (
+            <>
+              <NextLink href={"/login"}>
+                <p>Login</p>
+              </NextLink>
+              <NextLink href={"/register"}>
+                <p>Register</p>
+              </NextLink>
+            </>
+          ) : (
+            <>
+              <div>{data?.me.username}</div>
+              <button
+                onClick={() => logout()}
+                className={`${logoutFetching ? "opacity-50" : ""}`}
+              >
+                Logout
+              </button>
+            </>
+          )}
+        </div>
+      </nav>
+    </header>
   );
 };

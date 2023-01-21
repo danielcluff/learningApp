@@ -3,7 +3,6 @@ import { createUrqlClient } from "../utils/createUrqlClient";
 import { usePostsQuery } from "../generated/graphql";
 import { useEffect, useState } from "react";
 import { Layout } from "../components/Layout";
-import NextLink from "next/link";
 import { PostCard } from "../components/PostCard";
 
 const Index = () => {
@@ -37,15 +36,10 @@ const Index = () => {
         <div className="f">loading...</div>
       ) : (
         <>
-          <div className="flex justify-between items-center">
-            <h1 className="text-4xl">LiReddit</h1>
-            <NextLink href={"/create-post"}>Create post</NextLink>
-          </div>
-          <br />
-          <div className="mt-4 max-w-lg space-y-8">
-            {data?.posts?.posts?.map((p) => (
-              <PostCard key={p.id} post={p} />
-            ))}
+          <div className="mt-4 space-y-8">
+            {data?.posts?.posts?.map((p) =>
+              !p ? null : <PostCard key={p.id} post={p} />
+            )}
           </div>
           {data && data.posts.hasMore ? (
             <button
@@ -86,3 +80,4 @@ export default withUrqlClient(createUrqlClient, { ssr: true })(Index);
 // 9:23:06
 // 9:51:57
 // 10:04:08
+// 10:38:18
