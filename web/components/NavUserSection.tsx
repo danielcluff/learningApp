@@ -1,8 +1,9 @@
 import React from "react";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
-import { isServer } from "../utils/isServer";
+// import { isServer } from "../utils/isServer";
 import { useHasMounted } from "../utils/useHasMounted";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 
 const Login = () => (
   <>
@@ -21,6 +22,7 @@ export const NavUserSection: React.FC = () => {
     // pause: isServer(),
   });
   const [{ fetching }, logout] = useLogoutMutation();
+  const router = useRouter();
 
   if (!hasMounted) {
     return <Login />;
@@ -34,7 +36,10 @@ export const NavUserSection: React.FC = () => {
     <>
       <p>{data?.me.username}</p>
       <button
-        onClick={() => logout()}
+        onClick={async () => {
+          await logout();
+          router.reload();
+        }}
         className={`${fetching ? "opacity-50" : ""}`}
       >
         Logout

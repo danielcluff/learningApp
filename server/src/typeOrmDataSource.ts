@@ -1,16 +1,14 @@
+import path from "path";
 import { DataSource } from "typeorm";
 import { Post } from "./entities/Post";
 import { User } from "./entities/User";
 import { Updoot } from "./entities/Updoot";
-import path from "path";
 
 export const dataSource = new DataSource({
   type: "postgres",
-  database: "postgres",
-  username: "postgres",
-  password: "postgres",
+  url: process.env.DATABASE_URL,
   logging: true,
-  synchronize: true,
+  synchronize: false,
   migrations: [path.join(__dirname, "./migrations/*")],
   entities: [Post, User, Updoot],
 });

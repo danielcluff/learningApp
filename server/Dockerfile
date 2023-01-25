@@ -1,23 +1,29 @@
 FROM nginx
+# FROM node:14
 
-ENV mongo_db_username=admin \
-    mongo_db_pwd=password
+# ENV mongo_db_username=admin \
+#     mongo_db_pwd=password
 
-WORKDIR /usr/share/react
+WORKDIR /usr/src/app
 
-RUN curl -fsSL https://deb.nodesource.com/setup_17.x | bash -
-RUN apt-get install -y nodejs
+# RUN curl -fsSL https://deb.nodesource.com/setup_17.x | bash -
+# RUN apt-get install -y nodejs
 
 COPY package*.json ./
 
 RUN npm install
 
 COPY . .
+COPY .env.production .env
 
 RUN npm run build
 
-RUN rm -r /usr/share/nginx/html/*
+ENV NODE_ENV production
 
-RUN cp -a build/. /usr/share/nginx/html
+# RUN rm -r /usr/share/nginx/html/*
 
-CMD ['node', 'server.js']
+# RUN cp -a build/. /usr/share/nginx/html
+
+EXPOSE 8080
+CMD [ "node", "dist/index.js" ]
+USER node

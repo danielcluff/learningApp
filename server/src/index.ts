@@ -16,16 +16,16 @@ import { createUpdootLoader } from "./utils/createUpdootLoader";
 
 const main = async () => {
   await dataSource.initialize();
-  // await Post.delete({});
   await dataSource.runMigrations();
 
   const app = express();
   const RedisStore = connectRedis(session);
-  const redis = new Redis();
+  const redis = new Redis(process.env.REDIS_URL);
 
+  app.set("proxy", 1);
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: process.env.CORS_ORIGIN,
       credentials: true,
     })
   );
@@ -41,9 +41,10 @@ const main = async () => {
         httpOnly: true,
         sameSite: "lax", // csrf
         secure: __prod__, // cookie only works in https
+        domain: __prod__ ? ".codeponder.com" : undefined,
       },
       saveUninitialized: false,
-      secret: "asdoifjo3nnansdoiuvcdnnd",
+      secret: process.env.SESSION_SECRET,
       resave: false,
     })
   );
@@ -68,8 +69,8 @@ const main = async () => {
     cors: false,
   });
 
-  app.listen(4000, () => {
-    console.log("server started on localhost:4000");
+  app.listen(parseInt(process.env.PORT), () => {
+    console.log(`server started on ${process.env.PORT}`);
   });
 };
 
