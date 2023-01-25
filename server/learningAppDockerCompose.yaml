@@ -16,8 +16,6 @@ services:
       - redis-data:/data/db
   nginx:
     image: nginx
-  # node: 
-  #   image: node
 volumes:
   redis-data:
   postgres:
