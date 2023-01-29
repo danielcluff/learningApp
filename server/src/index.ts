@@ -1,4 +1,6 @@
 import "reflect-metadata";
+import * as dotenv from "dotenv";
+dotenv.config();
 import { COOKIE_NAME, __prod__ } from "./constants";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
@@ -14,6 +16,7 @@ import { dataSource } from "./typeOrmDataSource";
 import { createUserLoader } from "./utils/createUserLoader";
 import { createUpdootLoader } from "./utils/createUpdootLoader";
 
+// console.log("env", process.env.DATABASE_URL);
 const main = async () => {
   await dataSource.initialize();
   await dataSource.runMigrations();
